@@ -1,0 +1,47 @@
+name: happy
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+  fonts:
+    - family: NunitoBlack
+      fonts:
+        - asset: fonts/Nunito-Black.ttf
+        - asset: fonts/Nunito-BlackItalic.ttf
+    - family: NunitoBold
+      fonts:
+        - asset: fonts/Nunito-Bold.ttf
+        - asset: fonts/Nunito-BoldItalic.ttf
+    - family: NunitoExtraBold
+      fonts:
+        - asset: fonts/Nunito-ExtraBold.ttf
+        - asset: fonts/Nunito-ExtraBoldItalic.ttf
+    - family: NunitoExtraLight
+      fonts:
+        - asset: fonts/Nunito-ExtraLight.ttf
+        - asset: fonts/Nunito-ExtraLightItalic.ttf
+    - family: NunitoSemiBold
+      fonts:
+        - asset: fonts/Nunito-SemiBold.ttf
+        - asset: fonts/Nunito-SemiBold.ttf
