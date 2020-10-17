@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy/components/home/home.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 class Splash extends StatelessWidget {
@@ -10,6 +11,7 @@ class Splash extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         SplashScreen(
+          navigateAfterSeconds: Home(),
           seconds: 3,
           gradientBackground: LinearGradient(
             begin: Alignment.topCenter,
