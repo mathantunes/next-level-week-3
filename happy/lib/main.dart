@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'NunitoExtraLight'
       ),
       home: Scaffold(
-        body: Splash(city: "Rio do Sul", state: "Santa Catarina",),
+        body: Splash(city: "São Paulo", state: "São Paulo",),
       )
     );
   }
