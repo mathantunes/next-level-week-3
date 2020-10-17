@@ -14,7 +14,7 @@ class Splash extends StatelessWidget {
           gradientBackground: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF2AB5D1), Color(0xFF00C7C7)],
+            colors: [Color(0xFF00C7C7), Color(0xFF2AB5D1)],
           ),
           loaderColor: Colors.transparent,
         ),
