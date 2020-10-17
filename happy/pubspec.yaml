@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  splashscreen: ^1.2.0
   flutter:
     sdk: flutter
 
@@ -41,6 +42,10 @@ flutter:
       fonts:
         - asset: fonts/Nunito-ExtraLight.ttf
         - asset: fonts/Nunito-ExtraLightItalic.ttf
+    - family: NunitoLight
+      fonts:
+        - asset: fonts/Nunito-Light.ttf
+        - asset: fonts/Nunito-LightItalic.ttf
     - family: NunitoSemiBold
       fonts:
         - asset: fonts/Nunito-SemiBold.ttf
