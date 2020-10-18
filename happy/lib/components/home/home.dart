@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:happy/models/orphanage.dart';
+import 'package:happy/services/image.dart';
 import 'package:happy/services/orphanages.dart';
 import "package:latlong/latlong.dart";
 
@@ -34,10 +34,10 @@ class HomeMap extends StatelessWidget {
           ),
         ),
         FloatingActionButton(
-          onPressed: () {
-            var o = Orphanage();
-            o.name = "Teste123";
-            orphanageService.createOrphanage(o);
+          onPressed: () async {
+            var img = await imagePicker.pickImage();
+            print(img.fileName);
+            await orphanageService.uploadImage("Teste123", img);
           },
         )
       ],
