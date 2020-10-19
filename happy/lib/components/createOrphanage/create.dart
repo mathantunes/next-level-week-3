@@ -1,4 +1,6 @@
+import 'package:firebase/firebase.dart';
 import 'package:flutter/material.dart';
+import 'package:happy/components/createOrphanage/form.dart';
 import 'package:happy/components/map/map.dart';
 import 'package:latlong/latlong.dart';
 
@@ -25,7 +27,7 @@ class _CreateOrphanageState extends State<CreateOrphanage> {
       body: Stack(
         children: [
           Map(
-            latlongs: [latlng],
+            latlongs: latlng != null ? [latlng] : null,
             onTapMap: (latlng) {
               print(this.latlng.longitude);
               this.setState(() {
@@ -33,15 +35,34 @@ class _CreateOrphanageState extends State<CreateOrphanage> {
               });
             },
           ),
-          Positioned(
-            bottom: 40,
-            child: RaisedButton(
-              onPressed: () {},
-              child: Center(
-                child: Text("Proximo"),
-              ),
-            ),
-          )
+          latlng != null
+              ? Positioned(
+                  bottom: 40,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: MaterialButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          side: BorderSide(color: Color(0xFF2AB5D1))),
+                      color: Color(0xFF2AB5D1),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    OrphanageForm(latlng: this.latlng)));
+                      },
+                      child: Center(
+                        child: Text("Proximo",
+                            style: TextStyle(
+                                color: Colors.white, fontFamily: 'Nunito')),
+                      ),
+                    ),
+                  ),
+                )
+              : Container(
+                  color: Colors.transparent,
+                )
         ],
       ),
     );

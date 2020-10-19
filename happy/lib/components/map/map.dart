@@ -19,7 +19,10 @@ class Map extends StatelessWidget {
     return Container(
       child: FlutterMap(
         options: MapOptions(
-            onTap: onTapMap ?? () {},
+            onTap: onTapMap ??
+                () {
+                  print("fake");
+                },
             center: new LatLng(-23.4818636, -46.6144294),
             zoom: 15.0,
             screenSize: Size.infinite,
@@ -29,8 +32,9 @@ class Map extends StatelessWidget {
           TileLayerOptions(
               urlTemplate: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
               subdomains: ['a', 'b', 'c']),
-          MarkerLayerOptions(
-              markers: latlongs
+          latlongs != null
+              ? MarkerLayerOptions(
+                  markers: latlongs
                       ?.map((e) => Marker(
                           height: 58,
                           width: 68,
@@ -45,30 +49,8 @@ class Map extends StatelessWidget {
                                         fit: BoxFit.none,
                                         scale: 1.2)),
                               ))))
-                      ?.toList() ??
-                  [
-                    Marker(
-                      height: 58,
-                      width: 68,
-                      point: LatLng(-23.4818636, -46.6144294),
-                      anchorPos: AnchorPos.align(AnchorAlign.top),
-                      builder: (ctx) => GestureDetector(
-                          onTap: () => showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: Text("Nome"),
-                                  elevation: 0,
-                                ),
-                              ),
-                          child: new Container(
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage('MapMarker.png'),
-                                    fit: BoxFit.none,
-                                    scale: 1.2)),
-                          )),
-                    )
-                  ])
+                      ?.toList())
+              : MarkerLayerOptions()
         ],
       ),
     );
