@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:happy/components/createOrphanage/create.dart';
+import 'package:happy/components/map/map.dart';
 import 'package:happy/services/image.dart';
-import 'package:happy/services/orphanages.dart';
-import "package:latlong/latlong.dart";
 
 class Home extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -15,30 +14,66 @@ class HomeMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    var scaffold = Scaffold(
+      body: Stack(
+        children: [
+          Map(
+            onTapMap: (latlng) {},
+          ),
+          FloatingActionButton(
+            onPressed: () async {
+              var img = await imagePicker.pickImage();
+              print(img.fileName);
+            },
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavBar(),
+    );
+    return scaffold;
+  }
+}
+
+class BottomNavBar extends StatelessWidget {
+  const BottomNavBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          child: FlutterMap(
-            options: MapOptions(
-                center: new LatLng(-23.4818636, -46.6144294),
-                zoom: 15.0,
-                screenSize: Size.infinite,
-                maxZoom: 25,
-                minZoom: 10),
-            layers: [
-              TileLayerOptions(
-                  urlTemplate:
-                      "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: ['a', 'b', 'c'])
-            ],
+            height: 40,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            child: Center(
+              widthFactor: 2,
+              child: Text(
+                "2 Encontrados",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.grey, fontFamily: 'Nunito', fontSize: 20),
+              ),
+            )),
+        Positioned(
+          right: 0,
+          child: RaisedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CreateOrphanage()));
+            },
+            color: Color(0xFF2AB5D1),
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                side: BorderSide(color: Color(0xFF2AB5D1))),
           ),
-        ),
-        FloatingActionButton(
-          onPressed: () async {
-            var img = await imagePicker.pickImage();
-            print(img.fileName);
-            await orphanageService.uploadImage("Teste123", img);
-          },
         )
       ],
     );

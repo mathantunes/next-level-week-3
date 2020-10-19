@@ -19,7 +19,7 @@ class _Orphanages {
     return Orphanage.fromJSON(orp.data(), orp.id);
   }
 
-  Future<Uri> uploadImage(String id, MediaInfo blob) async {
+  Future<void> uploadImage(Orphanage o, MediaInfo blob) async {
     var metadata = fb.UploadMetadata(
       contentType: "png",
     );
@@ -27,10 +27,12 @@ class _Orphanages {
     var ref = fb
         .storage()
         .refFromURL("gs://go-serverless-gcloud.appspot.com")
-        .child("orphanages/$id.png");
+        .child("orphanages/${o.id}_${blob.fileName}.png");
     var upTask = ref.put(blob.data, metadata);
     var taskSnap = await upTask.future;
-    return taskSnap.ref.getDownloadURL();
+    var url = await taskSnap.ref.getDownloadURL();
+    o.images.add(url.path);
+    await dbRef.collection(orphCollection).doc(o.id).update(o.toJSON());
   }
 }
 

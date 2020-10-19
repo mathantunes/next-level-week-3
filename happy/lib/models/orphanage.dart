@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:convert';
 
 class Orphanage {
   String name;
@@ -32,7 +33,7 @@ class Orphanage {
         open: json["open"] as String,
         openOnWeekend: json["openOnWeekend"] as bool,
         id: id,
-        images: json["images"] as List<String>);
+        images: jsonDecode(json["images"]) as List<String>);
   }
 
   Map<String, dynamic> toJSON() {
@@ -45,7 +46,7 @@ class Orphanage {
       "open": this.open,
       "openOnWeekend": this.openOnWeekend,
       "id": this.id,
-      "images": this.images
+      "images": jsonEncode(this.images)
     };
   }
 }
