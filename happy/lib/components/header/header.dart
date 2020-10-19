@@ -5,14 +5,14 @@ class Header extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text(
-          this.text,
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black, fontFamily: 'NunitoBlack'),
-        ),
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Colors.black,
       ),
+      backgroundColor: Colors.white,
+      centerTitle: true,
+      title: Text(this.text,
+          style: TextStyle(color: Colors.black, fontFamily: 'NunitoBlack')),
     );
   }
 }
