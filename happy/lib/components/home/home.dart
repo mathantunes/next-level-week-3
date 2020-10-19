@@ -20,12 +20,6 @@ class HomeMap extends StatelessWidget {
           Map(
             onTapMap: (latlng) {},
           ),
-          FloatingActionButton(
-            onPressed: () async {
-              var img = await imagePicker.pickImage();
-              print(img.fileName);
-            },
-          ),
         ],
       ),
       bottomNavigationBar: BottomNavBar(),
