@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:happy/components/header/header.dart';
+import 'package:happy/models/orphanage.dart';
+import 'package:happy/services/orphanages.dart';
 import 'package:latlong/latlong.dart';
 
 class OrphanageForm extends StatefulWidget {
@@ -12,6 +13,7 @@ class OrphanageForm extends StatefulWidget {
 class _OrphanageFormState extends State<OrphanageForm> {
   final _formKey = GlobalKey<_OrphanageFormState>();
   final formPrimary = 0xFF8FA7B2;
+  String nome, sobre;
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +49,11 @@ class _OrphanageFormState extends State<OrphanageForm> {
                     FieldHeader(
                       text: "Nome",
                     ),
-                    FieldForm(),
+                    fieldForm(1, 20, nome),
                     FieldHeader(
                       text: "Sobre",
                     ),
-                    FieldForm(maxLines: 5, maxLength: 300),
+                    fieldForm(5, 300, sobre),
                     FieldHeader(
                       text: "Fotos",
                     ),
@@ -63,8 +65,47 @@ class _OrphanageFormState extends State<OrphanageForm> {
                   ],
                 ),
               ),
+              RaisedButton(
+                onPressed: () async {
+                  await orphanageService.createOrphanage(Orphanage(
+                      about: sobre,
+                      name: nome,
+                      latitude: widget.latlng.latitude,
+                      longitude: widget.latlng.longitude));
+                },
+              )
             ],
           ),
+        ));
+  }
+
+  String _validateText(String t) {
+    if (t.length < 3) return 'Campo deve ter mais que 2 caracteres';
+    return null;
+  }
+
+  Widget fieldForm(int maxLines, int maxLength, dynamic variable) {
+    return TextFormField(
+        validator: _validateText,
+        autocorrect: true,
+        enabled: true,
+        maxLines: maxLines,
+        maxLength: maxLength,
+        onChanged: (value) {
+          variable = value;
+        },
+        decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFFD3E2E5)),
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFFD3E2E5)),
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFFD3E2E5)),
+              borderRadius: BorderRadius.all(Radius.circular(15))),
         ));
   }
 }
@@ -90,39 +131,6 @@ class GroupTitle extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class FieldForm extends StatelessWidget {
-  const FieldForm({Key key, this.maxLines, this.maxLength}) : super(key: key);
-  String _validateText(String t) {
-    if (t.length < 3) return 'Campo deve ter mais que 2 caracteres';
-    return null;
-  }
-
-  final int maxLines;
-  final int maxLength;
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-        validator: _validateText,
-        autocorrect: true,
-        enabled: true,
-        maxLines: this.maxLines,
-        maxLength: this.maxLength,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFD3E2E5)),
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFD3E2E5)),
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-          border: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFD3E2E5)),
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-        ));
   }
 }
 
